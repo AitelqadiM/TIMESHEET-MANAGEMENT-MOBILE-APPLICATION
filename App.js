@@ -1,20 +1,27 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 
-export default function App() {
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { Provider } from "react-redux";
+import { store } from "./store";
+import AuthStack from './navigation/AuthStack';
+import { AuthProvider } from './context/AuthContext';
+import AppNav from './navigation/AppNav';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Let's get the Keycloak application started</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store} >
+    <SafeAreaProvider>
+    <AuthProvider>
+      <AppNav/>
+    </AuthProvider>
+    </SafeAreaProvider>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
